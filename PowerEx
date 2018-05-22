@@ -10,7 +10,7 @@ contract Exchange {
     
     mapping (address => uint256) Tokens;
 
-    function Exchange (uint256 _price) public {
+    constructor (uint256 _price) public {
 
         seller = 0;
         buyer = 0;
