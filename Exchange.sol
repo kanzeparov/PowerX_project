@@ -11,13 +11,10 @@ contract Exchange {
     mapping (address => uint256) Tokens;
 
     constructor (uint256 _price) public {
-
         seller = 0;
         buyer = 0;
         active = false;
-
         price=_price;
-              
     }
     
     function Sell () public {
@@ -25,15 +22,8 @@ contract Exchange {
     }
     
     function Buy () public {
-        buyer = msg.sender;
-    }
-    
-    function Create(uint256 token) public payable
-    {
         require(seller!=0);
-        require(buyer!=0);
-
-        Tokens[buyer] += token;
+        buyer = msg.sender;
         active=true;
     }
     
@@ -57,18 +47,12 @@ contract Exchange {
     
     function Stop() public
     {
-        require(buyer==msg.sender);
         active=false;
-
         buyer=0;
+        seller=0;
     }
     
-    function TakeMoney() public
-    {
-        require(seller==msg.sender);
-        seller=0;
-
-    }
+ 
     
     function TokensSeller() public view returns (uint256) {
         return Tokens[seller];
