@@ -31,15 +31,15 @@ contract Exchange {
         return active;
     }
     
-    function AddDeposit (uint256 token) public payable
+    function AddDeposit (uint256 token) public payable //for test only
     {
-        require(msg.value > 0);
-        Tokens[buyer] += token;        
+        Tokens[msg.sender] += token;        
     }
     
     function Step() public
     {
         require (Tokens[buyer]>=price);
+        require (active);
         Tokens[buyer] = Tokens[buyer]-price;
         Tokens[seller] = Tokens[seller]+price;
 
@@ -61,4 +61,9 @@ contract Exchange {
     function TokensBuyer() public view returns (uint256) {
         return Tokens[buyer];
     }
+    
+    function MyTokens() public view returns (uint256) {
+        return Tokens[msg.sender];
+    }
+    
 }
